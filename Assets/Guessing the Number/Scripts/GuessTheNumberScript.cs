@@ -10,12 +10,14 @@ public class GuessTheNumberScript : MonoBehaviour
     public TextMeshProUGUI hintsText;
     public TextMeshProUGUI guessText;
 
+    private int currentNumber;
 
     private int numberOfGuesses;
     private int score;
 
     void Start()
     {
+        currentNumber = GenerateRandomNumber();
         numberOfGuesses = 0;
         score = 0;
     }
@@ -36,7 +38,7 @@ public class GuessTheNumberScript : MonoBehaviour
     public void CheckGuess(string guess)
     {
         numberOfGuesses++;
-
+        guessText.text = "You guessed " + guess + "\n";
         // WRITE CODE BELOW
 
         // END OF CODE

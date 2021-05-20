@@ -28,14 +28,7 @@ public class GameMenuManager : MonoBehaviour
     {
         if(Input.GetKeyDown(pauseGameKey))
         {
-            if (isPaused)
-            {
-                UnpauseGame();
-            }
-            else
-            {
-                PauseGame();
-            }
+            // PLACE CODE BELOW
         }
     }
 
