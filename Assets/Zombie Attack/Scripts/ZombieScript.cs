@@ -4,15 +4,31 @@ using UnityEngine;
 
 public class ZombieScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public UnityStandardAssets.Characters.ThirdPerson.AICharacterControl aicc;
+    public ZombieSpawnerScript parentSpawner;
+
+    private void Awake() 
     {
-        
+        if(aicc == null)
+        {
+            aicc = GetComponent<UnityStandardAssets.Characters.ThirdPerson.AICharacterControl>();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Init(Transform target, ZombieSpawnerScript spawner)
     {
-        
+        if(aicc == null)
+        {
+            aicc = GetComponent<UnityStandardAssets.Characters.ThirdPerson.AICharacterControl>();
+        }
+        aicc.target = target;
+        parentSpawner = spawner;
+    }
+
+    public void KillZombie()
+    {
+        // ADD CODE HERE
+
+        // END OF CODE
     }
 }

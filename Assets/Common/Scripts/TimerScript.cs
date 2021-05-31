@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
 
-public class GuessTimerScript : MonoBehaviour
+public class TimerScript : MonoBehaviour
 {
     public int gameTimer = 120;
     private int currentTime = 0;
