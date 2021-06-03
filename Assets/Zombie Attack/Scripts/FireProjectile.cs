@@ -24,12 +24,22 @@ public class FireProjectile : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetButtonDown("Fire1") && ammoCount > 0)
+        if (Input.GetButtonDown("Fire1") && ammoCount > 0)
         {
             // ADD CODE HERE
+            GameObject bullet = Instantiate(bulletPrefab);
+            Destroy(bullet, bulletActiveTime);
+            BulletScript bs = bullet.GetComponent<BulletScript>();
+            FireBullet(bs);
+            ammoCount--;
 
             // END OF CODE
             ammoText.text = $"Ammo: {ammoCount}";
+        }
+
+        if (ammoCount == 0)
+        {
+            StartCoroutine(Reloading());
         }
 
 
@@ -43,6 +53,9 @@ public class FireProjectile : MonoBehaviour
 
     public IEnumerator Reloading()
     {
-        yield return new WaitForSeconds(0);
+        ammoText.text = "Reloading...";
+        yield return new WaitForSeconds(reloadTime);
+        ammoCount = maxAmmo;
+        ammoText.text = $"Ammo: {ammoCount}";
     }
 }

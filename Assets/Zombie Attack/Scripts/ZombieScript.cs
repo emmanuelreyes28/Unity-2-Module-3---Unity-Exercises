@@ -7,9 +7,9 @@ public class ZombieScript : MonoBehaviour
     public UnityStandardAssets.Characters.ThirdPerson.AICharacterControl aicc;
     public ZombieSpawnerScript parentSpawner;
 
-    private void Awake() 
+    private void Awake()
     {
-        if(aicc == null)
+        if (aicc == null)
         {
             aicc = GetComponent<UnityStandardAssets.Characters.ThirdPerson.AICharacterControl>();
         }
@@ -17,7 +17,7 @@ public class ZombieScript : MonoBehaviour
 
     public void Init(Transform target, ZombieSpawnerScript spawner)
     {
-        if(aicc == null)
+        if (aicc == null)
         {
             aicc = GetComponent<UnityStandardAssets.Characters.ThirdPerson.AICharacterControl>();
         }
@@ -28,7 +28,8 @@ public class ZombieScript : MonoBehaviour
     public void KillZombie()
     {
         // ADD CODE HERE
-
+        parentSpawner.ZombieHasDied();
+        Destroy(this.gameObject);
         // END OF CODE
     }
 }

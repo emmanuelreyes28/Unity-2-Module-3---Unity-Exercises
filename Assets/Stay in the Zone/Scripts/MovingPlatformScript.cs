@@ -18,7 +18,7 @@ public class MovingPlatformScript : MonoBehaviour
 
     void Start()
     {
-        if(startingPosition == Vector3.zero)
+        if (startingPosition == Vector3.zero)
         {
             startingPosition = this.transform.position;
         }
@@ -29,7 +29,7 @@ public class MovingPlatformScript : MonoBehaviour
     public void MovePlatform(float speed)
     {
         float remainingDist;
-        if(goingBackwards)
+        if (goingBackwards)
         {
             remainingDist = Vector3.Distance(this.transform.position, startingPosition);
         }
@@ -38,12 +38,12 @@ public class MovingPlatformScript : MonoBehaviour
             remainingDist = Vector3.Distance(this.transform.position, endingPosition);
         }
 
-        if(remainingDist < changeDistance)
+        if (remainingDist < changeDistance)
         {
             goingBackwards = !goingBackwards;
         }
 
-        if(goingBackwards)
+        if (goingBackwards)
         {
             this.transform.position = Vector3.MoveTowards(this.transform.position, startingPosition, speed * Time.deltaTime);
         }
@@ -53,31 +53,45 @@ public class MovingPlatformScript : MonoBehaviour
         }
     }
 
-    private void Update() 
+    private void Update()
     {
-        if(!playerOnPlatform)
+        if (!playerOnPlatform)
         {
             MovePlatform(normalSpeed);
-        }    
+        }
     }
 
-    private void OnCollisionEnter(Collision other) 
+    private void OnCollisionEnter(Collision other)
     {
         // ADD CODE BELOW
+        if (other.collider.CompareTag("Player"))
+        {
+            playerOnPlatform = true;
+            transform.SetParent(this.transform);
+        }
 
         // END OF CODE
     }
 
-    private void OnCollisionStay(Collision other) 
+    private void OnCollisionStay(Collision other)
     {
         // ADD CODE BELOW
-        
+        if (other.collider.CompareTag("Player"))
+        {
+            MovePlatform(superSpeed);
+        }
+
         // END OF CODE
     }
 
-    private void OnCollisionExit(Collision other) 
+    private void OnCollisionExit(Collision other)
     {
         // ADD CODE BELOW
+        if (other.collider.CompareTag("Player"))
+        {
+            playerOnPlatform = false;
+            transform.SetParent(null);
+        }
 
         // END OF CODE
     }

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class ZoneScript : MonoBehaviour
-{ 
+{
     public float stayTimer = 5;
     public float startingZoneSize = 50;
     public float zoneRadiusDivider = 1.5f;
@@ -21,7 +21,7 @@ public class ZoneScript : MonoBehaviour
 
     void Start()
     {
-        if(zoneObject == null)
+        if (zoneObject == null)
         {
             zoneObject = this.gameObject;
         }
@@ -34,9 +34,9 @@ public class ZoneScript : MonoBehaviour
 
     public void RandomizeZoneLocation()
     {
-        float location_X = Random.Range(-zoneLocationRange.x,zoneLocationRange.x);
-        float location_Y = Random.Range(0,zoneLocationRange.y);
-        float location_Z = Random.Range(-zoneLocationRange.z,zoneLocationRange.z);
+        float location_X = Random.Range(-zoneLocationRange.x, zoneLocationRange.x);
+        float location_Y = Random.Range(0, zoneLocationRange.y);
+        float location_Z = Random.Range(-zoneLocationRange.z, zoneLocationRange.z);
 
         zoneObject.transform.position = new Vector3(location_X, location_Y, location_Z);
     }
@@ -44,7 +44,7 @@ public class ZoneScript : MonoBehaviour
     public void ZoneSuccess()
     {
         RandomizeZoneLocation();
-        zoneObject.transform.localScale = zoneObject.transform.localScale/zoneRadiusDivider;
+        zoneObject.transform.localScale = zoneObject.transform.localScale / zoneRadiusDivider;
         ZoneSuccessful?.Invoke();
         playerInside = false;
         timer = stayTimer;
@@ -55,23 +55,40 @@ public class ZoneScript : MonoBehaviour
         insideZoneTextHelper?.SetActive(show);
     }
 
-    private void OnTriggerEnter(Collider other) 
+    private void OnTriggerEnter(Collider other)
     {
         // ADD CODE BELOW
+        if (other.CompareTag("Player"))
+        {
+            playerInside = true;
+            SetZoneHelper(true);
+            timer = stayTimer;
+        }
 
         // END OF CODE
     }
 
-    private void OnTriggerStay(Collider other) 
+    private void OnTriggerStay(Collider other)
     {
         // ADD CODE BELOW
+        if (playerInside)
+        {
+            timer -= Time.deltaTime;
+        }
+        if (timer <= 0)
+        {
+            ZoneSuccess();
+        }
 
         // END OF CODE
     }
 
-    private void OnTriggerExit(Collider other) 
+    private void OnTriggerExit(Collider other)
     {
         // ADD CODE BELOW
+        playerInside = false;
+        SetZoneHelper(false);
+        timer = stayTimer;
 
         // END OF CODE
     }

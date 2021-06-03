@@ -6,18 +6,22 @@ public class CollectathonGameManager : MonoBehaviour
 {
     public List<Vector3> predefinedLocations;
     public float randomLocationRange = 30;
+    public GameObject[] levelItems;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        for (int i = 0; i < levelItems.Length; i++)
+        {
+            PlaceLocation(i, levelItems[i]);
+        }
     }
 
 
     public void PlaceLocation(int index, GameObject go)
     {
         // Predefined Location
-        if(index < predefinedLocations.Count)
+        if (index < predefinedLocations.Count)
         {
             go.transform.position = predefinedLocations[index];
         }
@@ -25,9 +29,9 @@ public class CollectathonGameManager : MonoBehaviour
         else
         {
             go.transform.position = new Vector3(
-                Random.Range(-randomLocationRange,randomLocationRange),
-                Random.Range(Mathf.Min(0,randomLocationRange),randomLocationRange),
-                Random.Range(-randomLocationRange,randomLocationRange));
+                Random.Range(-randomLocationRange, randomLocationRange),
+                Random.Range(Mathf.Min(0, randomLocationRange), randomLocationRange),
+                Random.Range(-randomLocationRange, randomLocationRange));
         }
     }
 }
