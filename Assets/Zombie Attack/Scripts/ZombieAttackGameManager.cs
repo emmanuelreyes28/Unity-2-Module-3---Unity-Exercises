@@ -15,6 +15,7 @@ public class ZombieAttackGameManager : MonoBehaviour
     void Start()
     {
         IncreaseScore(0);
+        gameOverObject.SetActive(false);
     }
 
     public void IncreaseScore(int value)

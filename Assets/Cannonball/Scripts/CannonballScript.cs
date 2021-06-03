@@ -6,6 +6,9 @@ public class CannonballScript : MonoBehaviour
 {
     private Rigidbody rb;
     private CannonControlScript cannon;
+    public float airSpeed = 10;
+    public float explosionPower = 10;
+    public float explosionRadius = 10;
 
     private void Awake() 
     {
@@ -20,7 +23,7 @@ public class CannonballScript : MonoBehaviour
         this.cannon = cannon;
 
         // ADD CODE HERE
-        
+
         // END OF CODE
     }
 
@@ -34,8 +37,20 @@ public class CannonballScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision other) 
     {
-
+        Explode();
         StartCoroutine(cannon.ReturnCamera());
-        Destroy(this.gameObject, 2);
+        Destroy(this.gameObject, 1);
+    }
+
+    public void Explode()
+    {
+        // Get every object (rayhit) that is within range of explosion
+        foreach(var rayhit in Physics.SphereCastAll(transform.position,explosionRadius, transform.forward, explosionRadius*2))
+        {
+            DestructableBuilding block = rayhit.collider.GetComponent<DestructableBuilding>();
+            // ADD CODE HERE
+        
+            // END OF CODE
+        }
     }
 }

@@ -9,6 +9,7 @@ public class FireProjectile : MonoBehaviour
     public float bulletActiveTime = 3;
     public float bulletPower = 10;
 
+    public GameObject firepoint;
 
     public float maxAmmo = 20;
     public TextMeshProUGUI ammoText;
@@ -23,7 +24,7 @@ public class FireProjectile : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetButton("Fire1") && ammoCount > 0)
+        if(Input.GetButtonDown("Fire1") && ammoCount > 0)
         {
             // ADD CODE HERE
 
@@ -36,6 +37,7 @@ public class FireProjectile : MonoBehaviour
 
     private void FireBullet(BulletScript bullet)
     {
+        bullet.transform.position = firepoint.transform.position;
         bullet.FireBullet(this.transform.forward, bulletPower);
     }
 

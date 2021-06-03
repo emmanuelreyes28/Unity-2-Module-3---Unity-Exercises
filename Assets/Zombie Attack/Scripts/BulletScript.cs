@@ -19,6 +19,10 @@ public class BulletScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision other) 
     {
+        if(other.gameObject.GetComponent<BulletScript>() != null || other.gameObject.CompareTag("Player"))
+        {
+            return;
+        }
         HealthScript hs = other.gameObject.GetComponent<HealthScript>();
         if(hs != null)
         {

@@ -74,6 +74,7 @@ public class CannonControlScript : MonoBehaviour
         GameObject cannonball =  Instantiate(cannonBallPrefab);
         cam.GetComponent<ThirdPersonOrbitCamBasic>().player = cannonball.transform;
         cannonball.transform.position = firepoint.position;
+        cannonball.transform.rotation = firepoint.rotation;
         cannonball.GetComponent<CannonballScript>()?.Launch(this, currentPower, currentAngle);
     }
 
